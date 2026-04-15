@@ -1,0 +1,11 @@
+name = "awesome-selfhosted"
+main = "worker/index.ts"
+compatibility_date = "2026-04-01"
+
+[assets]
+directory = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "awesome-selfhosted-db"
+database_id = "6b3e76b5-cb58-4c06-8c12-1683df83ff3b"
