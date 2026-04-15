@@ -125,23 +125,23 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-20 bg-white/95 dark:bg-neutral-900/95 border-b border-neutral-200 dark:border-neutral-800 backdrop-blur">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
-          <h1 className="text-lg font-bold tracking-tight">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3 sm:gap-4">
+          <h1 className="text-base sm:text-lg font-bold tracking-tight">
             <button onClick={() => { setTab("catalog"); setActiveTag(""); setSearch(""); }}>
               awesome-selfhosted
             </button>
           </h1>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {tab === "catalog" && (
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search projects..."
-                className="w-full max-w-md px-3 py-2 text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-neutral-300 dark:focus:border-neutral-700 outline-none"
+                placeholder="Search..."
+                className="w-full max-w-[160px] sm:max-w-md px-2 sm:px-3 py-2 text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-neutral-300 dark:focus:border-neutral-700 outline-none"
               />
             )}
           </div>
-          <div className="hidden sm:flex items-center gap-3 text-sm">
+          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
             <button
               onClick={() => setTab("catalog")}
               className={tab === "catalog" ? "font-semibold underline" : "text-neutral-500 hover:text-black dark:hover:text-white"}
@@ -157,14 +157,14 @@ export default function App() {
             {adminToken ? (
               <button
                 onClick={() => { localStorage.removeItem("ash_token"); setAdminToken(""); setIsAdmin(false); }}
-                className="text-xs text-neutral-500 hover:underline"
+                className="text-neutral-500 hover:text-black dark:hover:text-white"
               >
                 Logout
               </button>
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className="text-xs text-neutral-500 hover:underline"
+                className="text-neutral-500 hover:text-black dark:hover:text-white"
               >
                 Admin
               </button>
