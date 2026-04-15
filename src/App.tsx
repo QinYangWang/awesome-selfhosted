@@ -5,6 +5,8 @@ import { SoftwareCard } from "./components/SoftwareCard";
 import { DiscoveredCard } from "./components/DiscoveredCard";
 import { AdSenseHorizontal } from "./components/AdSense";
 
+const deepShadow = "rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px, rgba(0,0,0,0.05) 0px 23px 52px";
+
 export default function App() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [items, setItems] = useState<Software[]>([]);
@@ -123,10 +125,10 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-20 bg-white/95 dark:bg-neutral-900/95 border-b border-neutral-200 dark:border-neutral-800 backdrop-blur">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3 sm:gap-4">
-          <h1 className="text-base sm:text-lg font-bold tracking-tight">
+    <div className="min-h-screen flex flex-col bg-[#f6f5f4]">
+      <header className="sticky top-0 z-20 bg-white border-b border-[rgba(0,0,0,0.1)]">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3 sm:gap-4">
+          <h1 className="text-[18px] font-bold tracking-[-0.25px] text-[rgba(0,0,0,0.95)]">
             <button onClick={() => { setTab("catalog"); setActiveTag(""); setSearch(""); }}>
               awesome-selfhosted
             </button>
@@ -136,35 +138,35 @@ export default function App() {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search..."
-                className="w-full max-w-[160px] sm:max-w-md px-2 sm:px-3 py-2 text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-neutral-300 dark:focus:border-neutral-700 outline-none"
+                placeholder="Search projects..."
+                className="w-full max-w-[180px] sm:max-w-md px-3 py-2 text-[15px] bg-white border border-[#dddddd] rounded-[4px] text-[rgba(0,0,0,0.95)] placeholder-[#a39e98] focus:outline-none focus:ring-2 focus:ring-[#097fe8]"
               />
             )}
           </div>
-          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+          <div className="flex items-center gap-3 text-[15px] font-semibold">
             <button
               onClick={() => setTab("catalog")}
-              className={tab === "catalog" ? "font-semibold underline" : "text-neutral-500 hover:text-black dark:hover:text-white"}
+              className={tab === "catalog" ? "text-[rgba(0,0,0,0.95)]" : "text-[#615d59] hover:text-[rgba(0,0,0,0.95)] transition-colors"}
             >
               Catalog
             </button>
             <button
               onClick={() => setTab("discovered")}
-              className={tab === "discovered" ? "font-semibold underline" : "text-neutral-500 hover:text-black dark:hover:text-white"}
+              className={tab === "discovered" ? "text-[rgba(0,0,0,0.95)]" : "text-[#615d59] hover:text-[rgba(0,0,0,0.95)] transition-colors"}
             >
               Discovered
             </button>
             {adminToken ? (
               <button
                 onClick={() => { localStorage.removeItem("ash_token"); setAdminToken(""); setIsAdmin(false); }}
-                className="text-neutral-500 hover:text-black dark:hover:text-white"
+                className="text-[#615d59] hover:text-[rgba(0,0,0,0.95)] transition-colors"
               >
                 Logout
               </button>
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className="text-neutral-500 hover:text-black dark:hover:text-white"
+                className="text-[#615d59] hover:text-[rgba(0,0,0,0.95)] transition-colors"
               >
                 Admin
               </button>
@@ -177,7 +179,7 @@ export default function App() {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="px-2 py-1.5 text-xs bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+              className="px-3 py-1.5 text-[13px] font-medium bg-white border border-[#dddddd] rounded-[4px] text-[rgba(0,0,0,0.95)] focus:outline-none focus:ring-2 focus:ring-[#097fe8]"
             >
               <option value="stargazers_desc">Most stars</option>
               <option value="updated_desc">Recently updated</option>
@@ -186,7 +188,11 @@ export default function App() {
 
             <button
               onClick={() => setActiveTag("")}
-              className={`px-2 py-1.5 text-xs border ${activeTag === "" ? "bg-black text-white dark:bg-white dark:text-black border-black dark:border-white" : "border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"}`}
+              className={`px-3 py-1.5 text-[13px] font-semibold rounded-[9999px] border transition-colors ${
+                activeTag === ""
+                  ? "bg-[rgba(0,0,0,0.95)] text-white border-[rgba(0,0,0,0.95)]"
+                  : "bg-white text-[rgba(0,0,0,0.95)] border-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.02)]"
+              }`}
             >
               All
             </button>
@@ -195,7 +201,11 @@ export default function App() {
               <button
                 key={t.name}
                 onClick={() => setActiveTag(t.name === activeTag ? "" : t.name)}
-                className={`px-2 py-1.5 text-xs border ${activeTag === t.name ? "bg-black text-white dark:bg-white dark:text-black border-black dark:border-white" : "border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"}`}
+                className={`px-3 py-1.5 text-[13px] font-semibold rounded-[9999px] border transition-colors ${
+                  activeTag === t.name
+                    ? "bg-[rgba(0,0,0,0.95)] text-white border-[rgba(0,0,0,0.95)]"
+                    : "bg-white text-[rgba(0,0,0,0.95)] border-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.02)]"
+                }`}
               >
                 {t.name}
               </button>
@@ -209,7 +219,11 @@ export default function App() {
               <button
                 key={s}
                 onClick={() => setDiscoveredStatus(s)}
-                className={`px-2 py-1.5 text-xs border capitalize ${discoveredStatus === s ? "bg-black text-white dark:bg-white dark:text-black border-black dark:border-white" : "border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"}`}
+                className={`px-3 py-1.5 text-[13px] font-semibold rounded-[9999px] border capitalize transition-colors ${
+                  discoveredStatus === s
+                    ? "bg-[rgba(0,0,0,0.95)] text-white border-[rgba(0,0,0,0.95)]"
+                    : "bg-white text-[rgba(0,0,0,0.95)] border-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.02)]"
+                }`}
               >
                 {s}
               </button>
@@ -218,13 +232,13 @@ export default function App() {
         )}
       </header>
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-6">
         <AdSenseHorizontal />
 
         {tab === "catalog" && (
           <>
             {items.length === 0 && !loading && (
-              <div className="text-center text-neutral-500 py-20">No projects found.</div>
+              <div className="text-center text-[#615d59] py-20">No projects found.</div>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {items.map((item) => (
@@ -236,7 +250,7 @@ export default function App() {
                 <button
                   onClick={() => load(page + 1)}
                   disabled={loading}
-                  className="px-6 py-2 text-sm bg-black text-white dark:bg-white dark:text-black hover:opacity-80 disabled:opacity-50"
+                  className="px-6 py-2.5 text-[15px] font-semibold bg-[#0075de] text-white rounded-[4px] hover:bg-[#005bab] disabled:bg-[#a39e98] disabled:cursor-not-allowed active:scale-[0.98] transition-transform"
                 >
                   {loading ? "Loading..." : "Load more"}
                 </button>
@@ -248,7 +262,7 @@ export default function App() {
         {tab === "discovered" && (
           <>
             {discovered.length === 0 && !discoveredLoading && (
-              <div className="text-center text-neutral-500 py-20">
+              <div className="text-center text-[#615d59] py-20">
                 {discoveredStatus === "approved" ? "No discovered projects yet." : "Nothing here."}
               </div>
             )}
@@ -268,7 +282,7 @@ export default function App() {
                 <button
                   onClick={() => loadDiscovered(discoveredPage + 1)}
                   disabled={discoveredLoading}
-                  className="px-6 py-2 text-sm bg-black text-white dark:bg-white dark:text-black hover:opacity-80 disabled:opacity-50"
+                  className="px-6 py-2.5 text-[15px] font-semibold bg-[#0075de] text-white rounded-[4px] hover:bg-[#005bab] disabled:bg-[#a39e98] disabled:cursor-not-allowed active:scale-[0.98] transition-transform"
                 >
                   {discoveredLoading ? "Loading..." : "Load more"}
                 </button>
@@ -279,27 +293,36 @@ export default function App() {
       </main>
 
       {showLogin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-6 w-full max-w-sm">
-            <h2 className="text-lg font-semibold mb-4">Admin Login</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div
+            className="bg-white rounded-[12px] border border-[rgba(0,0,0,0.1)] p-6 w-full max-w-sm"
+            style={{ boxShadow: deepShadow }}
+          >
+            <h2 className="text-[22px] font-bold tracking-[-0.25px] text-[rgba(0,0,0,0.95)] mb-4">Admin Login</h2>
             <input
               value={loginUser}
               onChange={(e) => setLoginUser(e.target.value)}
               placeholder="Username"
-              className="w-full mb-3 px-3 py-2 text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-neutral-300 dark:focus:border-neutral-700 outline-none"
+              className="w-full mb-3 px-3 py-2 text-[15px] bg-white border border-[#dddddd] rounded-[4px] text-[rgba(0,0,0,0.95)] placeholder-[#a39e98] focus:outline-none focus:ring-2 focus:ring-[#097fe8]"
             />
             <input
               type="password"
               value={loginPass}
               onChange={(e) => setLoginPass(e.target.value)}
               placeholder="Password"
-              className="w-full mb-4 px-3 py-2 text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-neutral-300 dark:focus:border-neutral-700 outline-none"
+              className="w-full mb-4 px-3 py-2 text-[15px] bg-white border border-[#dddddd] rounded-[4px] text-[rgba(0,0,0,0.95)] placeholder-[#a39e98] focus:outline-none focus:ring-2 focus:ring-[#097fe8]"
             />
             <div className="flex gap-2">
-              <button onClick={handleLogin} className="flex-1 px-4 py-2 text-sm bg-black text-white dark:bg-white dark:text-black hover:opacity-80">
+              <button
+                onClick={handleLogin}
+                className="flex-1 px-4 py-2.5 text-[15px] font-semibold bg-[#0075de] text-white rounded-[4px] hover:bg-[#005bab] active:scale-[0.98] transition-transform"
+              >
                 Login
               </button>
-              <button onClick={() => setShowLogin(false)} className="px-4 py-2 text-sm border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800">
+              <button
+                onClick={() => setShowLogin(false)}
+                className="px-4 py-2.5 text-[15px] font-semibold bg-[rgba(0,0,0,0.05)] text-[rgba(0,0,0,0.95)] rounded-[4px] hover:bg-[rgba(0,0,0,0.08)] active:scale-[0.98] transition-transform"
+              >
                 Cancel
               </button>
             </div>
@@ -307,7 +330,7 @@ export default function App() {
         </div>
       )}
 
-      <footer className="border-t border-neutral-200 dark:border-neutral-800 py-6 text-center text-xs text-neutral-500">
+      <footer className="border-t border-[rgba(0,0,0,0.1)] bg-white py-6 text-center text-[13px] text-[#615d59]">
         <p>
           Data sourced from{" "}
           <a href="https://github.com/awesome-selfhosted/awesome-selfhosted-data" target="_blank" rel="noreferrer">
