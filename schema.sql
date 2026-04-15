@@ -27,3 +27,29 @@ CREATE TABLE IF NOT EXISTS tags (
   description TEXT,
   related_tags_json TEXT
 );
+
+CREATE TABLE IF NOT EXISTS admin (
+  id INTEGER PRIMARY KEY,
+  username TEXT NOT NULL,
+  password_hash TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS discovered_projects (
+  id TEXT PRIMARY KEY,
+  source TEXT NOT NULL,
+  source_url TEXT,
+  name TEXT,
+  description TEXT,
+  github_url TEXT,
+  stargazers_count INTEGER,
+  discovered_at TEXT,
+  llm_confidence REAL,
+  llm_category TEXT,
+  llm_has_docker INTEGER,
+  status TEXT DEFAULT 'pending',
+  merged_into_software_id TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_discovered_status ON discovered_projects(status);
+CREATE INDEX IF NOT EXISTS idx_discovered_source ON discovered_projects(source);
+CREATE INDEX IF NOT EXISTS idx_discovered_date ON discovered_projects(discovered_at);

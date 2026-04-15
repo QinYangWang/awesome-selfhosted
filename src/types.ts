@@ -30,3 +30,27 @@ export interface ListResponse {
   limit: number;
   items: Software[];
 }
+
+export interface DiscoveredProject {
+  id: string;
+  source: string;
+  source_url: string | null;
+  name: string | null;
+  description: string | null;
+  github_url: string | null;
+  stargazers_count: number | null;
+  discovered_at: string | null;
+  llm_confidence: number | null;
+  llm_category: string | null;
+  llm_has_docker: number | null;
+  status: string;
+  merged_into_software_id: string | null;
+}
+
+export interface DiscoveredResponse {
+  total: number;
+  page: number;
+  limit: number;
+  items: DiscoveredProject[];
+  isAdmin: boolean;
+}

@@ -5,6 +5,11 @@ compatibility_date = "2026-04-01"
 [assets]
 directory = "./dist"
 
+[[secrets_store_secrets]]
+binding = "ADMIN_PASSWORD_STORE"
+store_id = "455d32eb31fa4815afa2296e052bef13"
+secret_name = "ADMIN_PASSWORD"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "awesome-selfhosted-db"
